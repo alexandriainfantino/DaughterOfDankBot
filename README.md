@@ -1,3 +1,3 @@
- # Saltybot
+ # DaughterOfDankBot
 
- A discord bot for keeping up with [salty bet](https://www.saltybet.com)
+ A discord bot that pulls the latest imgur image for a keyword
