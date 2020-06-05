@@ -23,7 +23,8 @@ client.on('message', async (message: any) => {
                         channel.send("no image found :(");
                     } else {
                         const image = json.data[0].link;
-                        channel.send(image);
+                        const embed = new Discord.MessageEmbed().setImage(image);
+                        channel.send({embed});
                     }
                 })
                 .catch(function (err) {
