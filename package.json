@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "start": "node build/index.js",
+    "start": "node --inspect build/index.js",
     "watch": "nodemon",
     "test": "jest",
     "lint": "tslint --project .",
@@ -15,7 +15,6 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/jest": "^25.2.1",
-    "@types/mysql": "^2.15.9",
     "@types/node": "^13.11.1",
     "@types/ws": "^7.2.3",
     "jest": "^25.3.0",
@@ -25,9 +24,8 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "axios": "^0.19.2",
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",
-    "mysql": "^2.18.1"
+    "imgur": "^0.3.1"
   }
 }
