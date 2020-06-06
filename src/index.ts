@@ -15,7 +15,7 @@ client.on('message', async (message: any) => {
 
     switch(command) {
         case 'Image':
-            let query = commandArray[1];
+            let query = commandArray.slice(1).join(" ");
             let optionalParams = {sort: 'top'};
             imgur.search(query, optionalParams)
                 .then(function(json) {
