@@ -33,11 +33,13 @@ client.on('message', async (message: any) => {
                             if (image.is_album) {
                                 const albumLength = image.images.length;
                                 const albumIndex = Math.floor(Math.random() * Math.floor(albumLength));
+                                console.log('album index is ' + albumIndex)
                                 image = image.images[albumIndex].link;
                             } else {
                                 image = image.link;
                             }
                             const embed = new Discord.MessageEmbed().setImage(image).setURL(image);
+                            console.log('index is ' + index);
                             channel.send({embed});
                         } catch (e) {
                             channel.send("I crashed, blame dad.");
