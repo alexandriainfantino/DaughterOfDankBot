@@ -1,8 +1,11 @@
 import * as dotenv from "dotenv"
 import * as Discord from "discord.js"
+import BotUtilities from "./BotUtilities";
 const imgur = require('imgur');
 imgur.setClientId(process.env.CLIENT_ID);
 imgur.setAPIUrl(process.env.API_URL);
+
+const botUtilities = new BotUtilities();
 
 dotenv.config();
 const client = new Discord.Client();
@@ -20,37 +23,18 @@ client.on('message', async (message: any) => {
             const optionalParams = {sort: 'top'};
             imgur.search(query, optionalParams)
                 .then(function(json) {
-                    if (json.data.length === 0) {
+                    if (query.toLowerCase().includes('correll')) {
+                        const image = botUtilities.getCorrell();
+                        const embed = new Discord.MessageEmbed().setImage(image).setURL(image);
+                        console.log('image URL correll');
+                        channel.send({embed});
+                    }
+                    else if (json.data.length === 0) {
                         channel.send("no image found :(");
                     } else {
                         try {
-                            const arrayLength = json.data.length;
-                            let index = 0;
-                            if (arrayLength > 1) {
-                                index = Math.floor(Math.random() * Math.floor(arrayLength));
-                            }
-                            let image = json.data[index];
-                            if (image.is_album) {
-                                const albumLength = image.images.length;
-                                const albumIndex = Math.floor(Math.random() * Math.floor(albumLength));
-                                console.log('album index is ' + albumIndex);
-                                if (image.images[albumIndex].gifv) {
-                                    image = image.images[albumIndex].gifv;
-                                } else {
-                                    image = image.images[albumIndex].link;
-                                }
-                            } else {
-                                image = image.link;
-                            }
-                            const imageUrlArray = image.split(".");
-                            const imageExtension = imageUrlArray[imageUrlArray.length - 1];
-                            switch (imageExtension) {
-                                case "gifv":
-                                    image = image.substring(0, image.length - 1);
-                            }
-
+                            const image = botUtilities.findImage(json);
                             const embed = new Discord.MessageEmbed().setImage(image).setURL(image);
-                            console.log('index is ' + index);
                             console.log('image URL ' + image);
                             channel.send({embed});
                         } catch (e) {
