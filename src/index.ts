@@ -16,7 +16,7 @@ client.on('message', async (message: any) => {
         case "-dank":
             const channelId = message.channel.id;
             const channel = client.channels.cache.get(channelId as string) as Discord.TextChannel;
-            const query = commandArray[1];
+            const query = commandArray.slice(1).join(" ");
             const optionalParams = {sort: 'top'};
             imgur.search(query, optionalParams)
                 .then(function(json) {
