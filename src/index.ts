@@ -34,9 +34,9 @@ client.on('message', async (message: any) => {
                     } else {
                         try {
                             const image = botUtilities.findImage(json);
-                            const embed = new Discord.MessageEmbed().setImage(image).setURL(image);
+                            const file = new Discord.MessageAttachment(image);
                             console.log('image URL ' + image);
-                            channel.send({embed});
+                            channel.send({ files: [file] });
                         } catch (e) {
                             channel.send("I crashed, blame dad.");
                         }
